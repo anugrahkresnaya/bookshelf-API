@@ -75,8 +75,69 @@ const bookSaveHandler = (request, h) => {
   return response;
 };
 
-const getBooksHandler = (request, h) => ({
-  
-});
+const getBooksHandler = (request, h) => {
+  const { name, reading, finished } = request.query;
+
+  if (name) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books.filter((book) => book.name.toLowerCase()
+          .includes(name.toLowerCase())).map((book) => ({
+          id: book.id,
+          name: book.name,
+          publisher: book.publisher,
+        })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (reading) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books.filter((book) => Number(book.reading) === Number(reading))
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (finished) {
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: books.filter((book) => Number(book.finished) === Number(finished))
+          .map((book) => ({
+            id: book.id,
+            name: book.name,
+            publisher: book.publisher,
+          })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: books.map((book) => ({
+        id: book.id,
+        name: book.name,
+        publisher: book.publisher,
+      })),
+    },
+  });
+  response.code(200);
+  return response;
+};
 
 module.exports = { bookSaveHandler, getBooksHandler };
