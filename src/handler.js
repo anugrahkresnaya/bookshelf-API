@@ -11,7 +11,7 @@ const bookSaveHandler = (request, h) => {
     pageCount,
     readPage,
     reading,
-  } = request.paylaod;
+  } = request.payload;
 
   const id = nanoid(16);
   const finished = pageCount === readPage;
@@ -176,7 +176,7 @@ const editBooksHandler = (request, h) => {
     pageCount,
     readPage,
     reading,
-  } = request.paylaod;
+  } = request.payload;
 
   const updatedAt = new Date().toISOString();
 
@@ -192,7 +192,7 @@ const editBooksHandler = (request, h) => {
   if (readPage > pageCount) {
     const response = h.response({
       status: 'fail',
-      message: 'Gagal memperbarui buku. Mohon isi nama buku',
+      message: 'Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount',
     });
     response.code(400);
     return response;
