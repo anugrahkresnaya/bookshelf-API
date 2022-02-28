@@ -141,9 +141,9 @@ const getBooksHandler = (request, h) => {
 };
 
 const getBookDetailsByIdHandler = (request, h) => {
-  const { id } = request.params;
+  const { bookId } = request.params;
 
-  const book = books.filter((i) => i.id === id)[0];
+  const book = books.filter((i) => i.id === bookId)[0];
 
   if (book !== undefined) {
     const response = h.response({
